@@ -87,5 +87,40 @@ functions:
     handler: index.getAllEmployeeByCompany 
     events:
       - httpApi:
-          path: /getAllEmployeeByCompany/{company_name}
+          path: /getAllEmployeeByCompany/{id}
           method: get
+  
+  getAllEmployeeByTeam:
+    handler: index.getAllEmployeeByTeam 
+    events:
+      - httpApi:
+          path: /getAllEmployeeByTeam/{team_name}
+          method: get
+
+  getAllEmployeeByID:
+    handler: index.getAllEmployeeByID 
+    events:
+      - httpApi:
+          path: /getAllEmployeeByID/{id}
+          method: get
+
+  createEmployee:
+    handler: index.createEmployee 
+    events:
+      - httpApi:
+          path: /createEmployee
+          method: post
+  
+  editEmployeeDetails:
+    handler: index.editEmployeeDetails 
+    events:
+      - httpApi:
+          path: /editEmployeeDetails/{id}
+          method: put
+
+  archiveEmployee:
+    handler: index.archiveEmployee 
+    events:
+      - httpApi:
+          path: /archiveEmployee/{id}
+          method: put

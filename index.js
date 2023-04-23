@@ -130,7 +130,7 @@ module.exports.createTeamforSpecificCompanyID = async (event, context, callback)
 
   await client.connect()
 
-  const {rows} = await client.query(`INSERT INTO team (team_name, team_leader, company_id, created_at, modified_at, archived) VALUES ('${team_name}', '${team_leader}', '${company_id}', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, false WHERE id = ${id})`)
+  const {rows} = await client.query(`INSERT INTO team (team_name, team_leader, company_id, created_at, modified_at, archived) VALUES ('${team_name}', '${team_leader}', ${company_id}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, false)`)
 
   await client.clean()
 
@@ -176,16 +176,95 @@ module.exports.archiveTeam = async (event, context, callback) =>
 
 module.exports.getAllEmployeeByCompany = async (event, context, callback) =>
 {
-  const {company_name} = event.pathParameters
+  const {id} = event.pathParameters
 
   await client.connect()
 
-  const employee = await client.query (`SELECT employee_name FROM employee WHERE team = (SELECT team_name FROM team WHERE companies = '${company_name}')`)
+  const employee = await client.query (`SELECT employee_name FROM employee WHERE team_id = (SELECT id FROM team WHERE company_id = ${id})`)
 
   await client.clean()
 
   return{
     statusCode: 200,
     body: JSON.stringify({result: employee})
+  }
+}
+
+module.exports.getAllEmployeeByTeam = async (event, context, callback) =>
+{
+  const {team_name} = event.pathParameters
+
+  await client.connect()
+
+  const employee = await client.query (`SELECT employee_name FROM employee WHERE team_id = (SELECT id FROM team WHERE team_name = '${team_name}')` )
+
+  await client.clean()
+
+  return{
+    statusCode: 200,
+    body: JSON.stringify({result: employee})
+  }
+}
+
+module.exports.getAllEmployeeByID = async (event, context, callback) =>
+{
+  const {id} = event.pathParameters
+
+  await client.connect()
+
+  const employee = await client.query (`SELECT employee_name FROM employee WHERE id = ${id}`)
+
+  await client.clean()
+
+  return{
+    statusCode: 200,
+    body: JSON.stringify({result: employee})
+  }
+}
+
+module.exports.createEmployee = async (event, context, callback) =>
+{
+  const {employee_name, company_title, year_hired, birthdate, salary, image_url, team_id, created_at, modified_at, archived} = JSON.parse(event.body)
+
+  await client.connect()
+
+  const {rows} = await client.query (`INSERT INTO employee(employee_name, company_title, year_hired, birthdate, salary, image_url, team_id, created_at, modified_at, archived) VALUES ('${employee_name}', '${company_title}', ${year_hired}, '${birthdate}', ${salary}, '${image_url}', ${team_id}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, false)`)
+
+  await client.clean()
+
+  return{
+    statusCode: 200
+  }
+}
+
+module.exports.editEmployeeDetails = async (event, context, callback) =>
+{
+  const {id} = event.pathParameters
+  const{employee_name, company_title, year_hired, birthdate, salary, image_url, team_id, modified_at, archived} = JSON.parse(event.body)
+
+  await client.connect()
+
+  const {rows} = await client.query (`UPDATE employee SET employee_name = '${employee_name}', company_title = '${company_title}', year_hired = ${year_hired}, birthdate = '${birthdate}', salary = ${salary}, image_url = '${image_url}', team_id = ${team_id}, modified_at = CURRENT_TIMESTAMP, archived = '${archived}' WHERE id = '${id}'`)
+
+  await client.clean()
+
+  return{
+    statusCode: 200
+  }
+
+}
+
+module.exports.archiveEmployee = async (event, context, callback) =>
+{
+  const {id} = event.pathParameters
+
+  await client.connect()
+
+  const archive_employee = await client.query(`UPDATE employee SET archived = true, modified_at = CURRENT_TIMESTAMP WHERE id = '${id}'`)
+
+  await client.clean()
+  
+  return{
+    statusCode: 200
   }
 }
