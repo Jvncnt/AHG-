@@ -1,0 +1,112 @@
+functions:
+  getCompanies:
+    handler: handlers/getCompanyHandler.getCompany
+    events:
+      - httpApi:
+          path: /companies
+          method: get
+
+  getCompaniesByID:
+    handler: handlers/getCompanyByIdHandler.getCompanyById
+    events:
+      - httpApi:
+          path: /companiesid/{company_id}
+          method: get
+  
+  createCompany:
+    handler: handlers/createCompanyHandler.createCompany
+    events:
+      - httpApi:
+          path: /company
+          method: post
+  
+  editCompanyDetails:
+    handler: handlers/editCompanyDetailsHandler.editCompanyDetail
+    events:
+      - httpApi:
+          path: /company/{company_id}
+          method: put
+
+  archiveCompany:
+    handler: handlers/archivedCompanyHandler.archivedCompany
+    events:
+      - httpApi:
+          path: /companies/{company_id}
+          method: put
+  
+  teamByCompany:
+    handler: handlers/getTeamByCompanyHandler.getTeamByCompany
+    events:
+      - httpApi:
+          path: /Team/{company_id}
+          method: get
+
+  getTeamByID:
+    handler: handlers/getTeamByIdHandler.getTeamById
+    events:
+      - httpApi:
+          path: /Teamid/{id}
+          method: get
+  
+  createTeamforSpecificCompanyID:
+    handler: handlers/createTeamforSpecificCompanyIdHandler.createTeamforSpecificCompanyId
+    events:
+      - httpApi:
+          path: /Team/{company_id}
+          method: post
+  
+  editTeamDetails:
+    handler: handlers/editTeamDetailHandler.editTeamDetail
+    events:
+      - httpApi:
+          path: /team/{id}
+          method: post
+
+  archiveTeam:
+    handler: handlers/archiveTeamHandler.archiveTeam
+    events:
+      - httpApi:
+          path: /teams/{id}
+          method: put
+  
+  getAllEmployeeByCompany:
+    handler: handlers/getAllEmployeeByCompanyHandler.getAllEmployeeByCompany
+    events:
+      - httpApi:
+          path: /employee/{id}
+          method: get
+  
+  getAllEmployeeByTeam:
+    handler: handlers/getAllEmployeeByTeamHandler.getAllEmployeeByTeam 
+    events:
+      - httpApi:
+          path: /employees/{team_name}
+          method: get
+
+  getAllEmployeeByID:
+    handler: handlers/getAllEmployeeByIdHandler.getAllEmployeeById 
+    events:
+      - httpApi:
+          path: /Employee/{id}
+          method: get
+
+  createEmployee:
+    handler: handlers/createEmployeeHandler.createEmployee
+    events:
+      - httpApi:
+          path: /Employees
+          method: post
+  
+  editEmployeeDetails:
+    handler: handlers/editEmployeeDetailHandler.editEmployeeDetail
+    events:
+      - httpApi:
+          path: /employees/{id}
+          method: put
+
+  archiveEmployee:
+    handler: handlers/archiveEmployeeHandler.archiveEmployee
+    events:
+      - httpApi:
+          path: /Employees/{id}
+          method: put
