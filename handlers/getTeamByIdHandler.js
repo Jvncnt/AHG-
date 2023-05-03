@@ -2,9 +2,9 @@ const { getTeamByIdService } = require("../services/getTeamByIdService")
 
 module.exports.getTeamById = async (event, context, callback) => 
 {   
-    const { id } = event.pathParameters
+    const { team_id } = event.pathParameters
 
-    const{ result, statusCode } = await getTeamByIdService(id)
+    const{ result, statusCode } = await getTeamByIdService(team_id)
 
   return {
     body: result,

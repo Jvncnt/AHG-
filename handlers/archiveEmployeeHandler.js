@@ -2,9 +2,9 @@ const { archiveEmployeeService } = require("../services/archiveEmployeeService")
 
 module.exports.archiveEmployee = async (event, context, callback) => 
 {   
-    const { id } = event.pathParameters
+    const { employee_id } = event.pathParameters
 
-    const{ result, statusCode } = await archiveEmployeeService(id)
+    const{ result, statusCode } = await archiveEmployeeService(employee_id)
 
   return {
     body: result,

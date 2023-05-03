@@ -2,9 +2,9 @@ const { getAllEmployeeByCompanyService } = require("../services/getAllEmployeeBy
 
 module.exports.getAllEmployeeByCompany = async (event, context, callback) => 
 {   
-    const { id } = event.pathParameters
+    const { employee_id } = event.pathParameters
 
-    const{ result, statusCode } = await getAllEmployeeByCompanyService(id)
+    const{ result, statusCode } = await getAllEmployeeByCompanyService(employee_id)
 
   return {
     body: result,

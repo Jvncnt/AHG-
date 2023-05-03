@@ -4,10 +4,10 @@ const Employee = require("../models/Employee")
 
 module.exports.getAllEmployeeByTeamService = async (team_name) => {
     try{
-        const  result = (await databaseQuery(`SELECT * FROM employee WHERE team_id IN (SELECT id FROM team WHERE team_name = '${team_name}')`))
+        const  result = (await databaseQuery(`SELECT * FROM employee WHERE team_id IN (SELECT team_id FROM team WHERE team_name = '${team_name}')`))
 
         const employee = result.rows.map(item => {
-            const employees = new Employee(item.id, item.employee_name, item.company_title, item.year_hired, item.birthdate, item.salary, item.image_url, item.team_id, item.created_at, item.modified_at, item.archived)
+            const employees = new Employee(item.employee_id, item.employee_name, item.company_title, item.year_hired, item.birthdate, item.salary, item.image_url, item.team_id, item.created_at, item.modified_at, item.archived)
 
             return employees
         })  

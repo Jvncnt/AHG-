@@ -45,7 +45,7 @@ functions:
     handler: handlers/getTeamByIdHandler.getTeamById
     events:
       - httpApi:
-          path: /Teamid/{id}
+          path: /Teamid/{team_id}
           method: get
   
   createTeamforSpecificCompanyID:
@@ -59,21 +59,21 @@ functions:
     handler: handlers/editTeamDetailHandler.editTeamDetail
     events:
       - httpApi:
-          path: /team/{id}
-          method: post
+          path: /team/{team_id}
+          method: put
 
   archiveTeam:
     handler: handlers/archiveTeamHandler.archiveTeam
     events:
       - httpApi:
-          path: /teams/{id}
+          path: /teams/{team_id}
           method: put
   
   getAllEmployeeByCompany:
     handler: handlers/getAllEmployeeByCompanyHandler.getAllEmployeeByCompany
     events:
       - httpApi:
-          path: /employee/{id}
+          path: /employee/{employee_id}
           method: get
   
   getAllEmployeeByTeam:
@@ -87,7 +87,7 @@ functions:
     handler: handlers/getAllEmployeeByIdHandler.getAllEmployeeById 
     events:
       - httpApi:
-          path: /Employee/{id}
+          path: /Employee/{employee_id}
           method: get
 
   createEmployee:
@@ -101,12 +101,12 @@ functions:
     handler: handlers/editEmployeeDetailHandler.editEmployeeDetail
     events:
       - httpApi:
-          path: /employees/{id}
+          path: /employees/{employee_id}
           method: put
 
   archiveEmployee:
     handler: handlers/archiveEmployeeHandler.archiveEmployee
     events:
       - httpApi:
-          path: /Employees/{id}
+          path: /Employees/{employee_id}
           method: put
